@@ -1,47 +1,67 @@
-# ws-aqi
-# Getting Started with Create React App
+# Proximity Web developer skill test
+Please read the following document to get a better understanding of the codebase. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# AQI Monitoring System
+  * [Vision](#vision)
+  * [Technical Description](#technical-description)
+  * [Scope Considerations](#scope-considerations)
+  * [Available Scripts](#available-scripts)
+  * [Directory Structure](#directory-structure)
+    + [public](#public)
+    + [client](#src)
+      * [pages](#pages)
+      * [components](#components)
+
+## Vision
+To create a AQI monitoring system. This project is like a MVP version and can be extended and used for full fledged AQI monitoring and analytics. 
+The scope of this project contains a webapp wherein you have a real time table that helps you see latest AQI values of different cities and checkout out historical values in graphical form.
+
+## Technical description
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
+
+`BlueprintJS` is being used for UI elements and `ChartJS` is used for plotting graphs.
+
+The project is configured with `eslint-prettier` code-formatter for maintaining a consistent coding style in the project. `Husky` is being used as pre-commit formatter which makes sure only consistent code is being pushed to the remote.
+
+## Scope Considerations 
+
+1. More focus was given on creating well structured, modular and maintainable code base, rather than making sure design is perfect is all resolutions. With more time and detailed description, UI robustness can be achieved.
+2. The project is built specifically for web view. Mobile view mode could be considerably improved with proper designs.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, install the dependencies with `npm install`  and then you can run:
 
-### `npm start`
+### `npm run start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
+The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `npm test`
+### `npm run prettier`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Format all the files in the project
 
-### `npm run build`
+## Directory Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Project is structured in a modular and scalable manner. You can find description of major directories here.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `public`
+This directory will contain all available 'public' assets. Place any images, video, sound and such here. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `src`
+This directory contains all files used on the cient side. Main sub-directories and files:
 
-### `npm run eject`
+#### `pages`
+This folder containes the main views in the project. Currently it has a single page `aqi.pages.tsx`, but more views can be added in a similar manner.
+#### `components`
+These are resuable react components that can be used across the application.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### `utilities`
+These are resuable utility functions that can be used across the application for formatting output, defining categories etc
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### `types`
+These are the global type definitions of data structures used across the application
