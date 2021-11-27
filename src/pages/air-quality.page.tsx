@@ -9,7 +9,11 @@ import {
 } from "@blueprintjs/core";
 import AQIChart from "../components/chart.component";
 import { IProps } from "../types/aqi.types";
-import { formatTime, value_to_className } from "../utilities/aqi.utilities";
+import {
+  formatTime,
+  parseCategory,
+  value_to_className,
+} from "../utilities/aqi.utilities";
 import { ws } from "../websocket";
 import { categories } from "../utilities/aqi.utilities";
 import { ItemRenderer, Select } from "@blueprintjs/select";
@@ -24,7 +28,7 @@ export const renderer: ItemRenderer<string> = (
   return (
     <MenuItem
       active={modifiers.active}
-      label={item[0].toUpperCase() + item.substring(1)}
+      label={parseCategory(item)}
       key={item}
       onClick={handleClick}
     />
@@ -105,7 +109,7 @@ export default function AirQuality() {
             alignText="left"
             rightIcon="caret-down"
             fill={true}
-            text={categoryFilter}
+            text={parseCategory(categoryFilter)}
           />
         </Select>
       </div>

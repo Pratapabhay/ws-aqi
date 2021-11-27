@@ -17,6 +17,7 @@
     "@types/react-dom": "^17.0.11",
     "chart.js": "^2.7.2",
     "chartjs-plugin-streaming": "^2.0.0",
+    "husky": "^7.0.4",
     "react": "^17.0.2",
     "react-chartjs-2": "^2.7.2",
     "react-dom": "^17.0.2",
@@ -32,7 +33,13 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "prettier": "2.3.0"
+    "prettier": "2.3.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts}": "eslint --cache --fix",
+    "src/**/*.{js,css,ts,html}": "prettier --write"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,7 +47,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js src",
-    "prettier": "prettier --write src"
+    "prettier": "prettier --write src",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [

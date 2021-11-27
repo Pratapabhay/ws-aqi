@@ -2,7 +2,7 @@ export function value_to_className(val: number | null) {
   const z = val || 0;
   return (
     `z-` +
-    (z > 0 && z < 50
+    (z > 0 && z <= 50
       ? "good"
       : z > 50 && z <= 100
       ? "satisfactory"
@@ -17,7 +17,7 @@ export function value_to_className(val: number | null) {
 }
 
 export function formatTime(t: number) {
-  const timeDiff = new Date().valueOf() - t;
+  const timeDiff = Math.round((new Date().valueOf() - t) / 1000);
   return timeDiff > 3600
     ? `${Math.round(timeDiff / 3600)} hr ago`
     : timeDiff > 60
@@ -37,3 +37,7 @@ export const categories: Map = {
   verypoor: [301, 400],
   severe: [401, 500],
 };
+
+export function parseCategory(item: string) {
+  return item[0].toUpperCase() + item.substring(1);
+}
