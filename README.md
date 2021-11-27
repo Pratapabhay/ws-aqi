@@ -15,7 +15,7 @@ Please read the following document to get a better understanding of the codebase
 
 ## Vision
 To create a AQI monitoring system. This project is like a MVP version and can be extended and used for full fledged AQI monitoring and analytics. 
-The scope of this project contains a webapp wherein you have a real time table that helps you see latest AQI values of different cities and checkout out historical values in graphical form.
+The scope of this project contains a webapp wherein you have a real time table that helps you see latest AQI values of different cities and checkout out historical values in graphical form. Time taken to build the entire project is around 6-7hrs, distributed between 2 days.
 
 ## Technical description
 
@@ -33,7 +33,8 @@ For the sake of the scope, pipeline, as of now, only includes a dummy test which
 ## Scope Considerations 
 
 1. More focus was given on creating well structured, modular and maintainable code base, rather than making sure design is perfect is all resolutions. With more time and detailed description, UI robustness can be achieved.
-3. The project is built specifically for web view. Mobile view mode could be considerably improved with proper designs.
+2. The project is built specifically for web view. Mobile view mode could be considerably improved with proper designs.
+
 
 ## Available Scripts
 
