@@ -1,9 +1,10 @@
-# Proximity Web developer skill test
+# Proximity Web Developer
 Please read the following document to get a better understanding of the codebase. 
 
 # AQI Monitoring System
   * [Vision](#vision)
   * [Technical Description](#technical-description)
+  * [Deployment](#deployment)
   * [Scope Considerations](#scope-considerations)
   * [Available Scripts](#available-scripts)
   * [Directory Structure](#directory-structure)
@@ -24,10 +25,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The project is configured with `eslint-prettier` code-formatter for maintaining a consistent coding style in the project. `Husky` is being used as pre-commit formatter which makes sure only consistent code is being pushed to the remote.
 
+## Deployment
+
+The project is being deployed on `http://ws-aqi.s3-website.ap-south-1.amazonaws.com/` and is configured with CI/CD using github actions. Currently, whenever changes are pushed onto the `main` branch, pipeline will run and code will be deployed on successfull completion of pipeline.
+For the sake of the scope, pipeline, as of now, only includes a dummy test which will pass everytime, but can easliy be extended to support complex test suites.
+
 ## Scope Considerations 
 
 1. More focus was given on creating well structured, modular and maintainable code base, rather than making sure design is perfect is all resolutions. With more time and detailed description, UI robustness can be achieved.
-2. The project is built specifically for web view. Mobile view mode could be considerably improved with proper designs.
+3. The project is built specifically for web view. Mobile view mode could be considerably improved with proper designs.
 
 ## Available Scripts
 
