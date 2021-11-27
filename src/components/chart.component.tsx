@@ -5,11 +5,11 @@ import { IProps, PropsChart } from "../types/aqi.types";
 
 const AQIChart = ({
   data,
-  currentChartIndex,
+  currentChartCity,
   closeChart,
 }: {
   data: IProps[];
-  currentChartIndex: number;
+  currentChartCity: string;
   closeChart: (arg: boolean) => void;
 }) => {
   const [chartData, setChartData] = React.useState<PropsChart>({
@@ -67,7 +67,7 @@ const AQIChart = ({
   };
 
   React.useEffect(() => {
-    const chartInfo = data[currentChartIndex];
+    const chartInfo = data.filter((item: IProps) => item.city === currentChartCity)[0];
     const oldData = chartData.datasets[0];
     const newData = { ...oldData };
 
@@ -79,7 +79,7 @@ const AQIChart = ({
       labels: [...chartInfo.updatedAt.map((i: number, index) => index)],
     };
     setChartData({ ...newChartData });
-  }, [data, currentChartIndex]);
+  }, [data, currentChartCity]);
 
   return (
     <div className="chart-wrapper">
