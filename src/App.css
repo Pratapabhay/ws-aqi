@@ -116,3 +116,21 @@
 .air-quality-table .bp3-icon:hover {
   cursor: pointer;
 }
+
+.filter-wrapper {
+  padding-top: 20px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.filter-wrapper > .filter-select {
+  padding: 0 20px;
+}
+
+.filter-select button {
+  min-width: 200px;
+  text-align: center;
+}
+

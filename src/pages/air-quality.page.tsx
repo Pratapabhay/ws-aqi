@@ -1,13 +1,34 @@
 import React, { Fragment } from "react";
-import { Icon } from "@blueprintjs/core";
+import { Button, Icon, MenuItem } from "@blueprintjs/core";
 import AQIChart from "../components/chart.component";
 import { IProps } from "../types/aqi.types";
 import { formatTime, value_to_className } from "../utilities/aqi.utilities";
 import { ws } from "../websocket";
+import { categories } from "../utilities/aqi.utilities";
+import { ItemRenderer, Select } from "@blueprintjs/select";
+
+
+export const renderer: ItemRenderer<string> = (
+  item: string,
+  { handleClick, modifiers }: any
+) => {
+  if (!modifiers.matchesPredicate) {
+    return null;
+  }
+  return (
+    <MenuItem
+      active={modifiers.active}
+      label={item[0].toUpperCase() + item.substring(1)}
+      key={item}
+      onClick={handleClick}
+    />
+  );
+};
 
 export default function AirQuality() {
   const [isOpenChart, setIsOpenChart] = React.useState<boolean>(false);
-  const [currentChartIndex, setCurrentChartIndex] = React.useState<number>(0);
+  const [currentChartCity, setCurrentChartCity] = React.useState<string>('');
+  const [categoryFilter, setCategoryFilter] = React.useState<any>('-');
   const [data, setData] = React.useState<IProps[]>([]);
 
   function updateState(newData: any, timeStamp: number) {
@@ -37,13 +58,41 @@ export default function AirQuality() {
     };
   });
 
-  function openChart(index: number) {
+  function openChart(city: string) {
     setIsOpenChart(true);
-    setCurrentChartIndex(index);
+    setCurrentChartCity(city);
   }
+
+  const filteredData = data.filter((item: IProps) => {
+    if (categoryFilter === '-') return item;
+    const latestAQIValue = item.aqi[item.aqi.length - 1];
+    const minValue = categories[categoryFilter][0];
+    const maxValue = categories[categoryFilter][1];
+    return latestAQIValue > minValue && latestAQIValue < maxValue;
+  });
 
   return (
     <>
+      <div className="filter-wrapper">
+        <div> Filters: Category </div>
+        <Select
+          className="filter-select"
+          items={['-', ...Object.keys(categories)]}
+          filterable={false}
+          resetOnSelect={true}
+          onItemSelect={setCategoryFilter}
+          activeItem={categoryFilter}
+          itemRenderer={renderer}
+          noResults={<MenuItem disabled={true} text="No results." />}
+        >
+          <Button
+            alignText="left"
+            rightIcon="caret-down"
+            fill={true}
+            text={categoryFilter}
+          />
+        </Select>
+      </div>
       <div className="air-quality-table">
         <table>
           <thead>
@@ -55,7 +104,7 @@ export default function AirQuality() {
             </tr>
           </thead>
           <tbody>
-            {data.map((item: IProps, index) => {
+            {filteredData.map((item: IProps, index) => {
               const aqi = Math.round(item.aqi[item.aqi.length - 1]);
               const lastUpdated = formatTime(
                 item.updatedAt[item.updatedAt.length - 1]
@@ -72,7 +121,7 @@ export default function AirQuality() {
                       <Icon
                         icon="chart"
                         size={20}
-                        onClick={() => openChart(index)}
+                        onClick={() => openChart(item.city)}
                       />{" "}
                     </td>
                   </tr>
@@ -84,7 +133,7 @@ export default function AirQuality() {
         {isOpenChart && (
           <AQIChart
             data={data}
-            currentChartIndex={currentChartIndex}
+            currentChartCity={currentChartCity}
             closeChart={setIsOpenChart}
           />
         )}
