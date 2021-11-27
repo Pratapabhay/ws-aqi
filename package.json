@@ -7,6 +7,7 @@
     "@blueprintjs/core": "^3.51.3",
     "@blueprintjs/select": "^3.18.10",
     "@blueprintjs/table": "^3.9.12",
+    "@js-joda/core": "^4.3.1",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",

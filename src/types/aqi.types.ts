@@ -1,7 +1,7 @@
 export type IProps = {
   city: string;
   aqi: number[];
-  updatedAt: number[];
+  updatedAt: string[];
 };
 
 export type FetchDatum = {
@@ -10,7 +10,7 @@ export type FetchDatum = {
 };
 
 export type PropsChart = {
-  labels: number[];
+  labels: string[];
   datasets: IDatasets[];
 };
 

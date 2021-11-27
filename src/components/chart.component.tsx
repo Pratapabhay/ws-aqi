@@ -43,9 +43,7 @@ const AQIChart = ({
           },
           ticks: {
             autoSkip: true,
-            min: 0,
-            max: 400,
-            stepSize: 50,
+            stepSize: 10,
           },
         },
       ],
@@ -57,9 +55,6 @@ const AQIChart = ({
           },
           ticks: {
             autoSkip: true,
-            min: 0,
-            max: 100,
-            stepSize: 5,
           },
         },
       ],
@@ -78,10 +73,12 @@ const AQIChart = ({
     const newChartData = {
       ...chartData,
       datasets: [newData],
-      labels: [...chartInfo.updatedAt.map((i: number, index) => index)],
+      labels: [...chartInfo.updatedAt.map((i: string, index) => i)],
     };
     setChartData({ ...newChartData });
   }, [data, currentChartCity]);
+
+  console.log(new Date().toLocaleTimeString());
 
   return (
     <div className="chart-wrapper">

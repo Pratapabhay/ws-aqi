@@ -1,3 +1,5 @@
+import { LocalTime, ChronoUnit } from "@js-joda/core";
+
 export function value_to_className(val: number | null) {
   const z = val || 0;
   return (
@@ -16,8 +18,13 @@ export function value_to_className(val: number | null) {
   );
 }
 
-export function formatTime(t: number) {
-  const timeDiff = Math.round((new Date().valueOf() - t) / 1000);
+export function formatTime(t: string) {
+  const timeDiff = LocalTime.parse(t).until(
+    LocalTime.now(),
+    ChronoUnit.SECONDS
+  );
+
+  // const timeDiff = Math.round((new Date().valueOf() - t) / 1000);
   return timeDiff > 3600
     ? `${Math.round(timeDiff / 3600)} hr ago`
     : timeDiff > 60

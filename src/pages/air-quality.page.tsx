@@ -51,11 +51,11 @@ export default function AirQuality() {
         clonedData.push({
           city: element.city,
           aqi: [parseFloat(element.aqi)],
-          updatedAt: [new Date().valueOf()],
+          updatedAt: [new Date().toLocaleTimeString()],
         });
       } else {
         clonedData[i].aqi.push(parseFloat(element.aqi));
-        clonedData[i].updatedAt.push(new Date().valueOf());
+        clonedData[i].updatedAt.push(new Date().toLocaleTimeString());
       }
     }
     setData(clonedData);
