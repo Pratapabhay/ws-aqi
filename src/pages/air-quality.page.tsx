@@ -1,12 +1,18 @@
 import React, { Fragment } from "react";
-import { Button, Icon, MenuItem } from "@blueprintjs/core";
+import {
+  Button,
+  Drawer,
+  DrawerSize,
+  Icon,
+  MenuItem,
+  Position,
+} from "@blueprintjs/core";
 import AQIChart from "../components/chart.component";
 import { IProps } from "../types/aqi.types";
 import { formatTime, value_to_className } from "../utilities/aqi.utilities";
 import { ws } from "../websocket";
 import { categories } from "../utilities/aqi.utilities";
 import { ItemRenderer, Select } from "@blueprintjs/select";
-
 
 export const renderer: ItemRenderer<string> = (
   item: string,
@@ -27,8 +33,9 @@ export const renderer: ItemRenderer<string> = (
 
 export default function AirQuality() {
   const [isOpenChart, setIsOpenChart] = React.useState<boolean>(false);
-  const [currentChartCity, setCurrentChartCity] = React.useState<string>('');
-  const [categoryFilter, setCategoryFilter] = React.useState<any>('-');
+  const [currentChartCity, setCurrentChartCity] = React.useState<string>("");
+  const [categoryFilter, setCategoryFilter] = React.useState<any>("-");
+  const [showDesktopChart, setShowDesktopChart] = React.useState<boolean>(true);
   const [data, setData] = React.useState<IProps[]>([]);
 
   function updateState(newData: any, timeStamp: number) {
@@ -58,13 +65,22 @@ export default function AirQuality() {
     };
   });
 
+  React.useEffect(() => {
+    const ww = document.body.clientWidth;
+    if (ww < 600) {
+      setShowDesktopChart(false);
+    } else if (ww >= 601) {
+      setShowDesktopChart(true);
+    }
+  });
+
   function openChart(city: string) {
     setIsOpenChart(true);
     setCurrentChartCity(city);
   }
 
   const filteredData = data.filter((item: IProps) => {
-    if (categoryFilter === '-') return item;
+    if (categoryFilter === "-") return item;
     const latestAQIValue = item.aqi[item.aqi.length - 1];
     const minValue = categories[categoryFilter][0];
     const maxValue = categories[categoryFilter][1];
@@ -77,7 +93,7 @@ export default function AirQuality() {
         <div> Filters: Category </div>
         <Select
           className="filter-select"
-          items={['-', ...Object.keys(categories)]}
+          items={["-", ...Object.keys(categories)]}
           filterable={false}
           resetOnSelect={true}
           onItemSelect={setCategoryFilter}
@@ -131,11 +147,39 @@ export default function AirQuality() {
           </tbody>
         </table>
         {isOpenChart && (
-          <AQIChart
-            data={data}
-            currentChartCity={currentChartCity}
-            closeChart={setIsOpenChart}
-          />
+          <>
+            {showDesktopChart ? (
+              <div className="chart-desktop">
+                <AQIChart
+                  data={data}
+                  currentChartCity={currentChartCity}
+                  closeChart={setIsOpenChart}
+                />
+              </div>
+            ) : (
+              <div className="chart-mobile">
+                <Drawer
+                  icon="info-sign"
+                  onClose={() => setIsOpenChart}
+                  autoFocus={true}
+                  canEscapeKeyClose={true}
+                  canOutsideClickClose={true}
+                  enforceFocus={true}
+                  hasBackdrop={true}
+                  isOpen={isOpenChart}
+                  position={Position.BOTTOM}
+                  usePortal={true}
+                  size={DrawerSize.LARGE}
+                >
+                  <AQIChart
+                    data={data}
+                    currentChartCity={currentChartCity}
+                    closeChart={setIsOpenChart}
+                  />
+                </Drawer>
+              </div>
+            )}
+          </>
         )}
       </div>
     </>

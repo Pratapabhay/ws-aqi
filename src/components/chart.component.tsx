@@ -67,7 +67,9 @@ const AQIChart = ({
   };
 
   React.useEffect(() => {
-    const chartInfo = data.filter((item: IProps) => item.city === currentChartCity)[0];
+    const chartInfo = data.filter(
+      (item: IProps) => item.city === currentChartCity
+    )[0];
     const oldData = chartData.datasets[0];
     const newData = { ...oldData };
 
